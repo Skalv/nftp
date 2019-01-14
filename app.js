@@ -53,8 +53,10 @@ app.post('/addsrv', function (req, res) {
 
 // Route pour l'analyse des trames
 app.get('/', function(req, res) {
+  
+
   res.render('index.twig', {
-    
+
   })
 })
 
