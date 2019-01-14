@@ -4,7 +4,7 @@
   "description": "bla bla bla",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app --watch views/*",
+    "start": "nodemon app.js --watch views/* models/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
