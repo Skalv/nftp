@@ -1,7 +1,19 @@
-const express = require('express')
-const app = express()
+const express  = require('express')
+const app      = express()
 var mysql      = require('mysql')
 var bodyParser = require('body-parser')
+var multer     = require('multer')
+
+// Parametres de multer, pour l'envois de fichier au serveur
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+var upload = multer({ storage: storage })
 
 // Initialisation de bodyParser;
 // Permet de récupérer simplement les données envoyées au serveur
@@ -19,6 +31,10 @@ var connection = mysql.createConnection({
 // Initialisation des models
 const ServerModel = require('./Models/server.js')
 const Server = new ServerModel(connection)
+const FileModel = require('./Models/file')
+const File = new FileModel(connection)
+const TrameModel = require('./Models/trame')
+const Trame = new TrameModel(Server, connection)
 
 // Ajout du moteur de template TWIG
 app.set('views', __dirname + '/views');
@@ -45,11 +61,28 @@ app.post('/addsrv', function (req, res) {
 })
 
 // Route pour l'analyse des trames
-app.get('/', function(req, res) {
-
-
+app.get('/', async function(req, res) {
+  let files = await File.getAll()
   res.render('index.twig', {
+    files: files
+  })
+})
 
+app.post('/addTramfile', upload.single('tramfile'), async function(req, res) {
+  await File.addFile(req.file.filename)
+  res.redirect('/')
+})
+
+app.get('/processFile/:id', async function(req, res) {
+  let filename = await File.getFilename(req.params.id)
+  await Trame.process(filename)
+  res.redirect('/processResult')
+})
+
+app.get('/processResult', async function(req, res) {
+  let badtrames = await Trame.getBad()
+  res.render('result.twig', {
+    badtrames: badtrames
   })
 })
 

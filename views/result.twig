@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <table class="table col-8">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Server Name</th>
+          <th scope="col">Server Mac</th>
+          <th scope="col">Server IP</th>
+          <th scope="col">IP Source</th>
+          <th scope="col">MAC Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trame in badtrames %}
+          <tr>
+            <th scope="row">{{trame.id}}</th>
+            <td>{{trame.name}}</td>
+            <td>{{trame.mac}}</td>
+            <td>{{trame.ip}}</td>
+            <td>{{trame.ipSrc}}</td>
+            <td>{{trame.macAddSrc}}</td>
+          </tr> 
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
