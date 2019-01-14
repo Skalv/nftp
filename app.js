@@ -8,19 +8,12 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// initialisation de la BDD
+// inzitialisation de la BDD
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
   database : 'nftp'
-});
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('connected as id ' + connection.threadId);
 });
 
 // Initialisation des models
@@ -53,7 +46,7 @@ app.post('/addsrv', function (req, res) {
 
 // Route pour l'analyse des trames
 app.get('/', function(req, res) {
-  
+
 
   res.render('index.twig', {
 
