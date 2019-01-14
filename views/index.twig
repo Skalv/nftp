@@ -4,60 +4,7 @@
   </head>
   <body>
     <div class="container">
-      {% if message %}
-      <div class="row">
-        <div class="alert alert-success" role="alert">
-          {{message}}
-        </div>
-      </div>
-      {% endif %}
-      <div class="row">
-        <h2>Gestion serveurs</h2>
-      </div>
-      <div class="row">
-        <table class="table col-8">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">name</th>
-              <th scope="col">ip</th>
-              <th scope="col">mask</th>
-              <th scope="col">mac</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for server in servers %}
-              <tr>
-                <th scope="row">{{server.id}}</th>
-                <td>{{server.name}}</td>
-                <td>{{server.ip}}</td>
-                <td>{{server.mask}}</td>
-                <td>{{server.mac}}</td>
-              </tr>
-            {% endfor %}  
-          </tbody>
-        </table>
-
-        <form class="col-4" method="POST" action="/addsrv">
-          <div class="form-group">
-            <label for="srvName">Nom serveur</label>
-            <input type="text" class="form-control" id="srvName" name="srvName">
-          </div>
-          <div class="form-group">
-            <label for="srvIP">IP Serveur</label>
-            <input type="text" class="form-control" id="srvIP" name="srvIP">
-          </div>
-          <div class="form-group">
-            <label for="srvMask">Masque réseau Serveur</label>
-            <input type="text" class="form-control" id="srvMask" name="srvMask">
-          </div>
-          <div class="form-group">
-              <label for="srvMac">Mac Serveur</label>
-              <input type="text" class="form-control" id="srvMac" name="srvMac">
-            </div>
-          <button type="submit" class="btn btn-primary">Sauvegarder</button>
-        </form>
-      </div>
+      
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
